@@ -1,6 +1,6 @@
 from flask import Flask
 
-app = flask(__name__) # hace ref al nombre del archivo
+app = Flask(__name__) # hace ref al nombre del archivo
 @app.route('/')
 def hellow_Flask():
     return 'Hello Flask'
