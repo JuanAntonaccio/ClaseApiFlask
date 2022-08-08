@@ -24,6 +24,6 @@ loaded_model=pickle.load(open('../models/coffee_model.pkl','rb'))
 result = loaded_model.predict(posted)
 # lo que me va retornar es un archivo numpy
 
-text_result = result.tolist(result)[0]
+text_result = result.tolist()[0]
 
 print(text_result)
