@@ -1,4 +1,7 @@
 from flask import Flask,render_template,jsonify,request
+import pickle
+import pandas as pd
+import numpy as np
 
 app = Flask(__name__) # hace ref al nombre del archivo
 @app.route('/')
@@ -9,14 +12,21 @@ def hellow_Flask():
 def show_home():
     return render_template("index.html")
 
-@app.route('/url_variables/<string:name>/<int:age>')
-def url_variables(name,age):
-    if age<18:
-        return jsonify(message='Lo siento'+name+' no estas autorizado'),401
-    else:
-        return  jsonify(message='Bienvenido '+name+' puedes pasar '),200   
-      
 
+@app.route('/<string: country>/<string: variety>/<float: aroma>/<float:aftertaste>/<float:acidity>/<float:body>/<float:balance>/<float::moisture')
+def results(country,variety,aroma,aftertaste,acidity,body,balance,moisture):
+
+   cols = ['country_of_origin','variety','aroma','aftertaste','acidity','body','balance','moisture']
+   data = [country,variety,aroma,aftertaste,acidity,body,balance,moisture]
+   posted = pd.DataFrame(np.array(data).reshape(1,8),columns=cols)
+   loaded_model=pickle.load(open('../models/coffee_model.pkl','rb'))
+
+   result = loaded_model.predict(posted)
+   text_result = result.tolist()[0]
+   if text_result == 'Yes':
+    return jsonify(message= 'Es un cafe de primera'),200
+   else:
+    return jsonify(message= 'No es Cafe de primera'),200
 
 
 if __name__ == '__main__':
