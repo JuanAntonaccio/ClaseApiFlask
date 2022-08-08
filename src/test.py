@@ -2,6 +2,8 @@ import pickle
 import pandas as pd 
 import numpy as np 
 
+# Caso para el no
+
 #country='Other'
 #variety='Other'
 #aroma=7.42
@@ -11,6 +13,8 @@ import numpy as np
 #balance=7.33
 #moisture=0.0
 
+
+#Caso para el si
 country='Colombia'
 variety='Caturra'
 aroma=7.83
